@@ -81,60 +81,6 @@ After building the project, you can run the tests (e.g., for European or Asian o
 
 This will execute the Monte Carlo simulation for pricing European options and output the results.
 
-## Usage
-
-The library can be used to price European and Asian options. The pricing is done by simulating multiple paths for the underlying asset using the GBM model, then calculating the average payoff for each option type.
-
-Example usage in the `main.cpp`:
-
-```cpp
-#include "../include/GBMModel.h"
-#include "../include/OptionPricing.h"
-#include "../include/RandomNumberGenerator.h"
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
-int main() {
-    // GBM parameters
-    double initialPrice = 100.0;
-    double drift = 0.05;
-    double volatility = 0.2;
-    double timeHorizon = 1.0; // 1 year
-    size_t steps = 252; // Daily steps
-
-    // Option parameters
-    double strikePrice = 100.0;
-    double riskFreeRate = 0.03;
-    size_t numPaths = 10000; // Number of Monte Carlo paths
-
-    // Create GBM model
-    GBMModel gbm(initialPrice, drift, volatility, timeHorizon, steps);
-
-    // Create random number generator
-    RandomNumberGenerator rng;
-
-    // Generate random number matrix
-    std::vector<std::vector<double>> randomNumbersMatrix(numPaths);
-    for (size_t i = 0; i < numPaths; ++i) {
-        randomNumbersMatrix[i] = rng.generateNormal(steps);
-    }
-
-    // Create OptionPricing engine
-    OptionPricing optionPricing(gbm, strikePrice, riskFreeRate);
-
-    // Price European call option
-    double callPrice = optionPricing.priceEuropeanCall(randomNumbersMatrix, numPaths);
-    std::cout << "European Call Option Price: " << callPrice << std::endl;
-
-    // Price European put option
-    double putPrice = optionPricing.priceEuropeanPut(randomNumbersMatrix, numPaths);
-    std::cout << "European Put Option Price: " << putPrice << std::endl;
-
-    return 0;
-}
-```
 
 ## Contributing
 
