@@ -48,7 +48,7 @@ Ensure you have the following tools installed:
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/pratycodes/Simulated-Option-Pricing.git
    cd MonteCarloLibrary
    ```
 
